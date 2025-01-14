@@ -37,4 +37,8 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+<<<<<<< HEAD
 *.history
+=======
+*.history
+>>>>>>> befc9abe8e5955d1d63ba0d938bb96b4e4cfca31
