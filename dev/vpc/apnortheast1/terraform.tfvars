@@ -6,7 +6,7 @@ cidr_numeral_public = {
     "0" = "0"
     "1" = "4"
     "3" = "8"
-    "4" = "12"
+#    "4" = "12"
 }
 cidr_numeral_private_svr = {
     "0" = "24"
