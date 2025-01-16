@@ -1,3 +1,4 @@
+# VPC Main Variables
 aws_region = "ap-northeast-1"
 vpc_name = "main_apnortheast1"
 cidr_numeral = "20"
@@ -28,3 +29,15 @@ cidr_numeral_private_rd = {
     "2" = "88"
 #    "3" = "96"
 }
+
+# Site to Site VPN Variable
+on_premise_public_ip = "211.243.118.210"
+on_premise_private_cidr = "192.168.30.0/24"
+aws_private_cidr = "10.20.0.0/16"
+
+# DHCP Option Set
+domain_name = "lion.com"
+domain_name_servers = ["10.20.24.12", "10.20.24.13"]
+
+# Network ACL
+openvpn_cluster_ip = ["10.20.0.5/32", "10.20.0.6/32"]

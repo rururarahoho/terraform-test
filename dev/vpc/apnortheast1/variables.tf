@@ -1,3 +1,4 @@
+# VPC Main Variables
 variable "aws_region" {
   description = "region"
 }
@@ -31,3 +32,29 @@ variable "cidr_numeral_private_rd" {
   type = map(string)
 }
 
+# Site to Site VPN Variable
+variable "on_premise_public_ip" {
+    type = string
+}
+
+variable "on_premise_private_cidr" {
+    type = string
+}
+
+variable "aws_private_cidr" {
+    type = string
+}
+
+# DHCP Option Set
+variable "domain_name" {
+    type = string
+}
+
+variable "domain_name_servers" {
+    type = list(string)
+}
+
+# Netwok ACL
+variable "openvpn_cluster_ip" {
+    type = list(string)
+}
