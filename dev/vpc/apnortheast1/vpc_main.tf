@@ -1,35 +1,58 @@
+## --- vpc --- ##
 resource "aws_vpc" "main" {
-  cidr_block           = "10.${var.cidr_numeral}.0.0/16" # Please set this according to your company size
-  enable_dns_hostnames = true
+    cidr_block = "10.${var.cidr_numeral}.0.0/16"
+    enable_dns_hostnames = true
 
-  tags = {
-    Name = "vpc-${var.vpc_name}"
-  }
+    tags = {
+        Name = "${var.vpc_name}"
+    }
 }
 
-# Internet Gateway
-resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
+## --- subnet --- ##
+# public subnet
+resource "aws_subnet" "public" {
+    count = length(var.availability_zones)
 
-  tags = {
-    Name = "igw-${var.vpc_name}"
-  }
+    vpc_id = aws_vpc.main.id
+    cidr_block = "10.${var.cidr_numeral}.${var.cidr_numeral_public[count.index]}.0/22"
+    availability_zone = element(var.availability_zones, count.index)
+    tags = {
+        Name = "public-${var.availability_zones[count.index]}"
+    }
 }
 
-## NAT Gateway
+# private server subnet
+resource "aws_subnet" "private_svr" {
+    count = length(var.availability_zones)
 
+    vpc_id = aws_vpc.main.id
+    cidr_block = "10.${var.cidr_numeral}.${var.cidr_numeral_private_svr[count.index]}.0/22"
+    availability_zone = element(var.availability_zones, count.index)
+    tags = {
+        Name = "private-svr-${var.availability_zones[count.index]}"
+    }
+}
 
+# private ws subnet
+resource "aws_subnet" "private_ws" {
+    count = length(var.availability_zones)
 
-# Elastic IP for NAT Gateway 
-resource "aws_eip" "nat" {
-  for_each = var.availability_zones
-  domain = "vpc"
-  
-  tags = {
-    Name = "ngw-eip-${each.key}"
-  }
+    vpc_id = aws_vpc.main.id
+    cidr_block = "10.${var.cidr_numeral}.${var.cidr_numeral_private_ws[count.index]}.0/22"
+    availability_zone = element(var.availability_zones, count.index)
+    tags = {
+        Name = "private-ws-${var.availability_zones[count.index]}"
+    }
+}
 
-  lifecycle {
-    create_before_destroy = true
-  }
+# private rd subnet
+resource "aws_subnet" "private_rd" {
+    count = length(var.availability_zones)
+
+    vpc_id = aws_vpc.main.id
+    cidr_block = "10.${var.cidr_numeral}.${var.cidr_numeral_private_rd[count.index]}.0/21"
+    availability_zone = element(var.availability_zones, count.index)
+    tags = {
+        Name = "private-rd-${var.availability_zones[count.index]}"
+    }
 }
