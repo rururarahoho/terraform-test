@@ -8,11 +8,11 @@ terraform {
 }
 
 provider "aws" {
-   region = "${var.region}"
+   region = "ap-northeast-1"
 }
 
 resource "aws_s3_bucket" "tfstate" {
-   bucket = "${var.account_id}-${var.region}-tfstate"
+   bucket = "${var.account_id}-apnortheast1-tfstate"
 }
 
 resource "aws_s3_bucket_versioning" "versioning_tfstate" {
@@ -31,10 +31,6 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
     name = "LockID"
     type = "S"
   }
-}
-
-variable "region" {
-   default = "ap-northeast-1"
 }
 
 variable "account_id" {

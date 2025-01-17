@@ -34,27 +34,47 @@ variable "cidr_numeral_private_rd" {
 
 # Site to Site VPN Variable
 variable "on_premise_public_ip" {
-    type = string
+  type = string
 }
 
 variable "on_premise_private_cidr" {
-    type = string
+  type = string
 }
 
 variable "aws_private_cidr" {
-    type = string
+  type = string
 }
 
 # DHCP Option Set
 variable "domain_name" {
-    type = string
+  type = string
 }
 
 variable "domain_name_servers" {
-    type = list(string)
+  type = list(string)
 }
 
 # Netwok ACL
 variable "openvpn_cluster_ip" {
-    type = list(string)
+  type = list(string)
+}
+
+# Peering
+variable "vpc_peering_list" {
+  type = list(object({
+    peer_owner_id = string
+    peer_region = string
+    peer_vpc_id = string
+    peer_vpc_name = string
+    peer_vpc_cidr = list(string)
+  }))
+}
+
+variable "peering_requests" {
+  type = list(object({
+    peer_id         = string
+    peer_vpc_name   = string
+    peer_cidr_block = string
+  }))
+  description = "peering connection id for accepting the peering connection "
 }

@@ -33,7 +33,7 @@ cidr_numeral_private_rd = {
 # Site to Site VPN Variable
 on_premise_public_ip = "211.243.118.210"
 on_premise_private_cidr = "192.168.30.0/24"
-aws_private_cidr = "10.20.0.0/16"
+aws_private_cidr = "10.${cidr_numeral}.0.0/16"
 
 # DHCP Option Set
 domain_name = "lion.com"
@@ -41,3 +41,23 @@ domain_name_servers = ["10.20.24.12", "10.20.24.13"]
 
 # Network ACL
 openvpn_cluster_ip = ["10.20.0.5/32", "10.20.0.6/32"]
+
+# VPC Peering Requester
+vpc_peering_list = [
+    {
+        peer_owner_id = "657678323470"
+        peer_region   = "ap-northeast-1"
+        peer_vpc_cidr = [ "10.30.0.0/16" ]
+        peer_vpc_id   = "vpc-"
+        peer_vpc_name = "sub_apnortheast1"
+    }
+]
+
+# VPC Peering Accepter
+peering_requests = [
+  {
+    "peer_id"         = "pcx-025501a85c5371c20"
+    "peer_vpc_name"   = "main_apnortheast2"
+    "peer_cidr_block" = "10.10.0.0/16"
+  }
+]

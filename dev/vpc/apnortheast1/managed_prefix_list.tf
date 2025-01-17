@@ -1,3 +1,5 @@
+# --- Managed Prefix List Create --- #
+ # iam
 resource "aws_ec2_managed_prefix_list" "iam" {
   name           = "iam.amazoneaws.com-prefix-list"
   address_family = "IPv4"
