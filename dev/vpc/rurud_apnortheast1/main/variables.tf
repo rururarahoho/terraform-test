@@ -1,4 +1,8 @@
 # VPC Main Variables
+variable "shard_id" {
+  description = "distinguish resource"
+}
+
 variable "aws_region" {
   description = "region"
 }
@@ -60,7 +64,7 @@ variable "openvpn_cluster_ip" {
 }
 
 # Peering
-variable "vpc_peering_list" {
+variable "vpc_peering_request_list" {
   type = list(object({
     peer_owner_id = string
     peer_region = string
@@ -70,7 +74,7 @@ variable "vpc_peering_list" {
   }))
 }
 
-variable "peering_requests" {
+variable "vpc_peering_accept_list" {
   type = list(object({
     peer_id         = string
     peer_vpc_name   = string

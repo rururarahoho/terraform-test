@@ -1,8 +1,9 @@
-# --- VPC Peering Request Create --- #
+
+# --- VPC Peering Requester Create --- #
 # !! A routing table must be created in advance !!
- # request create
+ # requester create
 resource "aws_vpc_peering_connection" "main_connection" {
-    for_each = { for entry in var.vpc_peering_list : entry.peer_vpc_name => entry }
+    for_each = { for entry in var.vpc_peering_request_list : entry.peer_vpc_name => entry }
     peer_owner_id = each.value.peer_owner_id
     peer_region   = each.value.peer_region
     peer_vpc_id   = each.value.peer_vpc_id
@@ -16,7 +17,7 @@ resource "aws_vpc_peering_connection" "main_connection" {
  # routing add
 locals {
     private_svr_peering_route_list = flatten([
-        for pair in setproduct(var.vpc_peering_list, aws_route_table.private_svr.*.id) : [
+        for pair in setproduct(var.vpc_peering_request_list, aws_route_table.private_svr.*.id) : [
             for cidr in pair[0].peer_vpc_cidr : {
                 peer_vpc_name  = pair[0].peer_vpc_name
                 peer_vpc_cidr  = cidr
@@ -32,4 +33,3 @@ resource "aws_route" "private_svr_peering" {
     destination_cidr_block    = each.value.peer_vpc_cidr
     vpc_peering_connection_id = aws_vpc_peering_connection.main_connection[each.value.peer_vpc_name].id
 }
-

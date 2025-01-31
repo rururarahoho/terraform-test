@@ -1,4 +1,5 @@
 # VPC Main Variables
+shard_id = "testapne1"
 aws_region = "ap-northeast-1"
 vpc_name = "main_apnortheast1"
 cidr_numeral = "20"
@@ -43,7 +44,7 @@ domain_name_servers = ["10.20.24.12", "10.20.24.13"]
 openvpn_cluster_ip = ["10.20.0.5/32", "10.20.0.6/32"]
 
 # VPC Peering Requester
-vpc_peering_list = [
+vpc_peering_request_list = [
     {
         peer_owner_id = "657678323470"
         peer_region   = "ap-northeast-1"
@@ -54,7 +55,7 @@ vpc_peering_list = [
 ]
 
 # VPC Peering Accepter
-peering_requests = [
+vpc_peering_accept_list = [
   {
     "peer_id"         = "pcx-025501a85c5371c20"
     "peer_vpc_name"   = "main_apnortheast2"
